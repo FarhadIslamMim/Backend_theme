@@ -23,13 +23,10 @@ Route::group(['prefix' => 'command'], function () {
 
 //Admin all route
 Route::middleware(['auth'])->group(function () {
-    // Route::get('/dashboard', function () {
-    //     return view('admin.admin_master'); })->name('dashboard');
-
-        Route::controller(AdminProfileController::class)->group(function () {
-            Route::get('/dashboard', 'Dashboard')->name('dashboard');
-            Route::get('/admin/logout', 'logOut')->name('admin.logout');
-        });
+    Route::controller(AdminProfileController::class)->group(function () {
+        Route::get('/dashboard', 'Dashboard')->name('dashboard');
+        Route::get('/admin/logout', 'logOut')->name('admin.logout');
+    });
 });
 
 Route::get('/', function () {
@@ -38,4 +35,4 @@ Route::get('/', function () {
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

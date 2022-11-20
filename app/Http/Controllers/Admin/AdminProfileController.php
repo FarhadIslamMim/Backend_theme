@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminProfileController extends Controller
 {
 
+
     public function Dashboard(){
         return view('admin.admin_master');
     }
@@ -22,6 +23,6 @@ class AdminProfileController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }//end funcation
 }

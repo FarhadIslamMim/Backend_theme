@@ -1,48 +1,56 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.admin-auth')
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+@section('content')
+<div class="login-box-body">
+    <p class="login-box-msg">{{ __('Reset Password') }}</p>
+    <form method="POST" action="{{ route('password.update') }}">
+        @csrf
 
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
+         <!-- Password Reset Token -->
+         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <!-- Password Reset Token -->
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+            <x-input id="email" class="form-control" type="email" name="email" :value="old('email', $request->email)" required autofocus />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-            </div>
+            @if ($errors->has('email'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
+        </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+            <input id="password" type="password" class="form-control" name="password" placeholder="{{ __('Password') }}" required>
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-            </div>
+            @if ($errors->has('password'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+        </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Confirm Password') }}">
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
-            </div>
+            @if ($errors->has('password_confirmation'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                </span>
+            @endif
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="submit" class="btn btn-custom btn-block btn-flat">
                     {{ __('Reset Password') }}
-                </x-button>
+                </button>
             </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+
+            <div class="col-xs-12 text-center pt-15">
+                <a href="{{ route('login') }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i> {{ __('back to login') }}</a>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
