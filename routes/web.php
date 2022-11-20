@@ -24,8 +24,11 @@ Route::group(['prefix' => 'command'], function () {
 //Admin all route
 Route::middleware(['auth'])->group(function () {
     Route::controller(AdminProfileController::class)->group(function () {
+
         Route::get('/dashboard', 'Dashboard')->name('dashboard');
+        Route::get('profile','index')->name('profile');
         Route::get('/admin/logout', 'logOut')->name('admin.logout');
+
     });
 });
 

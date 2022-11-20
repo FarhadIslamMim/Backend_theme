@@ -71,7 +71,7 @@
 
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a class="btn btn-custom btn-flat" href="">My Account</a>
+                                        <a class="btn btn-custom btn-flat" href="{{ route('profile') }}">My Account</a>
                                     </div>
                                     <div class="pull-right">
                                         <a class="btn btn-custom btn-flat" href="{{ route('admin.logout') }}">
