@@ -1,24 +1,41 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Admin\AdminProfileController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+//Test Route::START
+Route::group(['prefix' => 'command'], function () {
+    Route::get('clear', function () {
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+        dd("All clear!");
+    });
+
+    Route::get('/storage-link', function () {
+        Artisan::call('storage:link');
+        dd("Added!");
+    });
+});
+//Test Route::END
+
+//Admin all route
+Route::middleware(['auth'])->group(function () {
+    // Route::get('/dashboard', function () {
+    //     return view('admin.admin_master'); })->name('dashboard');
+
+        Route::controller(AdminProfileController::class)->group(function () {
+            Route::get('/dashboard', 'Dashboard')->name('dashboard');
+            Route::get('/admin/logout', 'logOut')->name('admin.logout');
+        });
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.admin_master');
-})->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';

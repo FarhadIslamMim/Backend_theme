@@ -74,12 +74,11 @@
                                         <a class="btn btn-custom btn-flat" href="">My Account</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a class="btn btn-custom btn-flat" href=""
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <a class="btn btn-custom btn-flat" href="{{ route('admin.logout') }}">
                                             {{ __('Logout') }}
                                         </a>
 
-                                        <form id="logout-form" class="non-validate" action=""
+                                        <form id="logout-form" class="non-validate" action="{{ route('admin.logout') }}"
                                             method="POST" style="display: none;">
                                             @csrf
                                         </form>
