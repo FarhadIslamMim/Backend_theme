@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\UserController;
 
 //Test Route::START
 Route::group(['prefix' => 'command'], function () {
@@ -29,9 +30,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('profile','index')->name('profile');
         Route::get('/admin/logout', 'logOut')->name('admin.logout');
 
-    });
-});
+        Route::post('profile/update', 'updateProfile')->name('profile.update');
+        Route::get('profile/password', 'password')->name('profile.password');
+        Route::post('profile/password', 'passwordUpdate');
 
+    });
+    Route::controller(UserController::class)->group(function () {
+
+        Route::get('users', 'index')->name('users.index');
+
+    });
+
+});
 Route::get('/', function () {
     return view('welcome');
 });

@@ -11,7 +11,7 @@
             <div class="box">
                 <div class="box-body">
                     <h4 class="box-title">Account Details</h4>
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('profile.update') }}">
                         @csrf
 
                         <div class="form-group">
@@ -54,7 +54,7 @@
             <div class="box">
                 <div class="box-body">
                     <h4 class="box-title">Change password</h4>
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('profile.password') }}">
                         @csrf
 
                         <div class="form-group">
@@ -62,7 +62,7 @@
                             <input type="password" class="form-control" name="current_password" required>
 
                             @error('current_password')
-                                <span class="help-block">{{ $message }}</span>
+                                <span class=" text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -71,7 +71,7 @@
                             <input type="password" class="form-control" name="password" required>
 
                             @error('password')
-                                <span class="help-block">{{ $message }}</span>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
